@@ -1,11 +1,11 @@
 @echo off
 echo "-------Begin-------"
 git status
-set /p msg=è¯·è¾“å…¥æäº¤æ³¨é‡Š:
+set /p msg=ÇëÊäÈëÌá½»×¢ÊÍ:
 git add .
 git commit -m %msg%
 git pull
 git push
-echo æ¨é€æˆåŠŸï¼šã€%msg%ã€‘
+echo ÍÆËÍ³É¹¦£º¡¾%msg%¡¿
 echo "--------End!--------"
 pause
