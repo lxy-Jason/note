@@ -31,3 +31,25 @@ function promiseAll (args) { //输入不限定于Array 但是得有iterable
 }
 ```
 
+测试
+
+```js
+let p1 = new Promise(resolve => {
+    resolve(1)
+})
+let p2 = new Promise(resolve => {
+    resolve(2)
+})
+let p3 = new Promise((resolve,reject) => {
+    reject(3)
+})
+
+promiseAll([p1,p2,p3]).then(res => {
+    console.log(res);
+}).catch(err => {
+    console.log(err);
+})
+```
+
+
+
