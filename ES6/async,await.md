@@ -1,6 +1,8 @@
 async和await关键字让我们可以用一种更简洁的方式写出基于`promise`的异步行为,而无需刻意地链式调用`promise`
 
-返回一个promise
+感觉就是用同步的写法执行异步操作
+
+async返回值是一个状态为fulfilled的promise对象,值为函数的return值
 
 ### 描述
 

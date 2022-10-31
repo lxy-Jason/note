@@ -4,7 +4,7 @@ function myNew(func,...args) {
   const obj = {};
   //将新对象的原型指向构造函数的原型
   obj.__proto__ = func.prototype
-  //将构造函数的this指向新函数
+  //将构造函数的this指向新对象
   let result = func.apply(obj,args)
   //根据返回值判断
   return result instanceof Object ? result : obj
