@@ -26,5 +26,15 @@ vue中更改响应式数据,dom的更新并不是同步生效的,vue内部实现
 
 ### 异步api选择
 
-`next-tick.js` 申明了 `microTimerFunc` 和 `macroTimerFunc` 2 个变量，它们分别对应的是 micro task 的函数和 macro task 的函数。对于 macro task 的实现，优先检测是否支持原生 `setImmediate`，这是一个高版本 IE 和 Edge 才支持的特性，不支持的话再去检测是否支持原生的 `MessageChannel`，如果也不支持的话就会降级为 `setTimeout 0`；而对于 micro task 的实现，则检测浏览器是否原生支持 Promise，不支持的话直接指向 macro task 的实现。
+timerFunc函数定义了使用哪种方法执行延迟回调函数
+
+这里采用优雅降级的方式选择异步方法
+
+首先是判断是否原生支持promise(ie不兼容)
+
+不支持就使用MutationObserver(html5新增)
+
+还不行就使用setImmediate
+
+最后是使用setTimeout
 
