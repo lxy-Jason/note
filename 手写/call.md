@@ -1,25 +1,43 @@
-```js
-Function.prototype.myCall =  function(context){
-  context = context || window;
-  context.fn = this; //fun
+### es5版本
 
-  let args = [];
-  for(let i = 1, len = arguments.length; i < len; i++){
-    args.push(`arguments[${i}]`)
+```js
+Function.prototype.myCall = function(context){
+  context = context || window //context为null时指向window
+  //首先获取调用call的函数,用this可以获取
+  context.fn = this;
+  var args = [];
+  for(var i = 1, len = arguments.length; i < len; i++){
+    args.push('arguments[' + i + ']');
   }
-  let result = eval(`context.fn(${args})`) //这里实际传入的是[ 'arguments[1]', 'arguments[2]' ]
-  //不是很理解
-  delete context.fn
-  return result //这个是fun的返回值,fun没有返回值就是undefined
+  // 执行后 args为 ["arguments[1]", "arguments[2]", "arguments[3]"]
+  //接收函数返回值
+  var result = eval('context.fn(' + args + ')')//这里 args 会自动调用 Array.toString() 这个方法。
+  delete context.fn;
+  return result
 }
-let test = {
-  name:"Jason",
-  age:20
+
+var foo = {
+  value:1
 }
-function fun(a){
-  console.log(this.name,this.age);
-  return a
+
+function bar(name,age){
+  console.log(name);
+  console.log(age);
+  console.log(this.value);
 }
-fun.myCall(test,1)
+bar.myCall(foo,"Jason",20)
+```
+
+### es6版本
+
+```js
+Function.prototype.myCall = function(context,...args){
+  context = Object(context) || window;
+
+  context.fn = this;
+  const result = context.fn(...args)
+  delete context.fn;
+  return result
+}
 ```
 
