@@ -1,0 +1,9 @@
+- v-text 用来更新节点的textContent内容,相当于使用插值表达式
+- v-html 最好不用,更新节点的innerHTML
+- v-once 节点只渲染一次,可以用来优化更新性能
+- v-if 条件渲染
+- v-show 显示隐藏
+- v-for 根据数组遍历渲染
+- v-bind 动态绑定
+- v-model 双向数据绑定
+- v-on 监听各种dom事件
