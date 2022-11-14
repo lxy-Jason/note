@@ -40,5 +40,35 @@
 
 右边overflow开启另一个bfc,不会和float的元素重叠,且可以占满父盒子剩余空间
 
+### 其他FC
 
+FC指的是Formating Context(格式化上下文)
+
+它是页面中的一块渲染区域,并且有一套渲染规则,它决定了其子元素将如何定位,以及和其他元素的关系和相互作用
+
+### IFC
+
+inline formating Context(内联格式化上下文)
+
+**作用**
+
+水平居中,当一个块要在环境中水平居中时,设置inline-block则会在外层产生IFC
+
+通过text-align则可以使其水平居中
+
+垂直居中,创建IFC,用其中一个元素撑开父元素的高度,然后设置其vertical-align:middle
+
+其他行内元素则可以在此父元素下垂直居中
+
+### GFC
+
+GridLayout Formatting Context(网格布局格式化上下文)
+
+当元素设置成display:grid的时候触发
+
+### FFC
+
+Flex Formating Context(自适应格式化上下文)
+
+display:flex或者inline-flex时触发
 
