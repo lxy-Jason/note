@@ -25,14 +25,11 @@ function asyncToGenerator(generatorFunc) {//传入一个生成器函数
         } else {
           return Promise.resolve( //对value不是promise的情况包裹一层
             value //这个value对应的是yield后面的promise
-          ).then(
-            function onResolve(val) {
-              step("next", val);
-            },
-            function onReject(err) {
-              step("throw", err);
-            }
-          );
+          ).then(res => {
+            step("next",res)
+          }).catch(err => {
+            step("throw",err)
+          })
         }
       }
       step("next"); //第一次调用next
