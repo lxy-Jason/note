@@ -1,0 +1,1 @@
+把`.vue`文件中的`template`与`style`编译到`.js`（编译到`render`函数），并混合到你在`.vue`中`export`出来的`Object`中。产出的`js`只是导出了一个符合`component`定义的`Object`。
