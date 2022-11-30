@@ -9,7 +9,7 @@ Function.prototype.myBind = function(context){
     const fn = this;
     return function Fn(){
         //根据调用方式,传入不同绑定值
-        return fn.apply(this instanceof Fn ? new fn(...arguments) : context,args.concat(...arguments))
+        return fn.apply(this instanceof Fn ? new Fn(...arguments) : context,args.concat(...arguments))
     }
 }
 let obj = {a:1}
