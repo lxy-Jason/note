@@ -32,7 +32,7 @@ var spiralOrder = function(matrix) {
         }
         for(; j > starty; j--){
             res.push(matrix[i][j]);
-            if(res.length === count){
+            if(res.length === count){	
                 return res;
             }
         }

@@ -1,0 +1,7 @@
+- 语义化标签: nav header footer aside section article
+- 音频,视频标签 : video audio
+- 数据存储: localStorage,sessionStorage,indexDB
+- canvas(画布),Geolocation(地理定位),websocket(通信协议)
+- 历史记录history
+- 拖拽API
+- 新的表单控件 : date,email,time,url,search

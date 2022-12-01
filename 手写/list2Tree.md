@@ -6,7 +6,7 @@ let arr = [
   { id: 4, name: '部门4', pid: 3 },
   { id: 5, name: '部门5', pid: 4 },
   { id: 6, name: '部门6', pid: 0 },
-]
+]		
 function list2Tree(arr){
   const list = [];
   arr.forEach(item => {
