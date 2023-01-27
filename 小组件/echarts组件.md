@@ -118,21 +118,21 @@ export const pieOptions = (option) => {
   return {
     title: {
       text: option.title,
-      x: 8,
-      textStyle: {
+      x: 8, //标题位置调整
+      textStyle: { //样式
         fontSize: 14,
         fontWeight: '600'
       }
     },
-    tooltip: {
+    tooltip: { //提示框
       trigger: 'item',
       backgroundColor: '#fff',
       borderWidth: 0,
       padding: 0,
       margin: 0,
       extraCssText: 'box-shadow: 0px 12px 32px rgba(26, 28, 36, 0.1);',
-      formatter(params) {
-        const { name, value, color } = params
+      formatter(params) { //自定义提示框样式
+        const { name, value, color } = params //params有很多数据
         return `
         <div
         style="padding:12px 16px;background-color:#fff;border-radius:4px;width:138px;height:65px;box-sizing: border-box;">
@@ -149,7 +149,7 @@ export const pieOptions = (option) => {
               `
       }
     },
-    legend: [
+    legend: [ //图例
       {
         left: 'center',
         bottom: '8%',
@@ -196,7 +196,7 @@ export const barOptions = (option) => {
         fontWeight: '600'
       }
     },
-    grid: {
+    grid: { //整体图形的位置
       bottom: '18%',
       left: '15%'
     },
@@ -225,7 +225,7 @@ export const barOptions = (option) => {
     },
     // calculable: true,
 
-    xAxis: [
+    xAxis: [ //x轴调整
       {
         type: 'category',
         data: option.xData,
@@ -233,7 +233,7 @@ export const barOptions = (option) => {
         axisTick: {
           alignWithLabel: true
         },
-        axisLine: {
+        axisLine: { //轴线配置
           show: true,
           lineStyle: {
             onZero: false,
@@ -248,7 +248,7 @@ export const barOptions = (option) => {
           interval: 0,
           rotate: option.rotate || 0,
           margin: option.margin || 8,
-          align: 'center',
+          align: 'center', //文字居中,倾斜的情况下不是默认居中的,要自己设置
           textStyle: {
             color: 'rgba(102, 102, 102, 1)',
             fontSize: 12
@@ -262,7 +262,7 @@ export const barOptions = (option) => {
         axisLine: {
           show: false
         },
-        splitLine: {
+        splitLine: { //分隔线配置
           lineStyle: {
             type: 'dashed',
             width: 0.5,
