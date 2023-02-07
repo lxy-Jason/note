@@ -20,3 +20,4 @@ console.log(myInstanceof(new String('aaa'), String)); // true
 console.log(myInstanceof([], Array)); // true
 ```
 
+**这里注意如果第二个参数为null应该报错**
