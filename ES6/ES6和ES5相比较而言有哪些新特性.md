@@ -12,4 +12,4 @@
 - promise
 - set
 - map
-- symbor
+- symbol
