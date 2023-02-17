@@ -151,9 +151,9 @@ src文件夹该有的文件基本都有
 
 拿到接口文档之后,先尝试在接口文档中跑通,确认接口没问题
 
-有些接口需要全局参数,在文档管理中配置
+有些接口需要全局参数,在**文档管理**中配置
 
-**第一步**
+**接口引入第一步**
 
 ![image-20230214153259612](image/image-20230214153259612.png)
 
@@ -239,7 +239,41 @@ src文件夹该有的文件基本都有
 
 #### 自测时注意
 
-在不同状态下进行刷新页面的测试,刷新之后可能会出现问题
+需要在不同状态下进行刷新页面的测试,刷新之后可能会出现问题
+
+
+
+#### 测试环境发布方式
+
+![image-20230215142616658](image/image-20230215142616658.png)
+
+在标签页从上往下找到第一个的`jzzs-sit`开头的tag,复制一份,然后点击新建标签
+
+![image-20230215143115896](image/image-20230215143115896.png)
+
+标签名要再之前的基础上**增加**
+
+分支名选择`jzzs-poc-dev`,这里**一定要注意不能选错**
+
+点击创建标签之后会进行自动化部署
+
+![image-20230215143709998](image/image-20230215143709998.png)
+
+在这里查看发布情况,运行中说明正在发布
+
+**如果发现前面操作出错,在这里可以取消(红色按钮)**
+
+
+
+#### 查看不同环境页面
+
+![image-20230215144135482](image/image-20230215144135482.png)
+
+从上到下分别是
+
+- 测试环境
+- 正式环境
+- 预发布环境
 
 
 
@@ -271,6 +305,8 @@ src文件夹该有的文件基本都有
 
 ### 文档相关
 
+#### 需求文档
+
 **开发应该完全以文档为准!!!**
 
 **写代码之前要仔细看一遍文档中对应的细节!!!**
@@ -284,4 +320,98 @@ src文件夹该有的文件基本都有
 - 后端一个接口返回多个模块数据时,应该积极沟通,让后端分成不同接口
 
   
+
+#### 接口文档
+
+拿到文档之后打不开时
+
+一种可能是没有权限
+
+一种可能是hosts文件需要修改
+
+##### hosts文件修改方式
+
+```
+C:\Windows\System32\drivers\etc
+```
+
+文件夹中打开上面的路径
+
+选择hosts文件用下面的内容进行覆盖
+
+如果没有修改权限,通过属性中的安全修改权限
+
+![image-20230215141551380](image/image-20230215141551380.png)
+
+```txt
+# Copyright (c) 1993-2009 Microsoft Corp.
+#
+# This is a sample HOSTS file used by Microsoft TCP/IP for Windows.
+#
+# This file contains the mappings of IP addresses to host names. Each
+# entry should be kept on an individual line. The IP address should
+# be placed in the first column followed by the corresponding host name.
+# The IP address and the host name should be separated by at least one
+# space.
+#
+# Additionally, comments (such as these) may be inserted on individual
+# lines or following the machine name denoted by a '#' symbol.
+#
+# For example:
+#
+#      102.54.94.97     rhino.acme.com          # source server
+#       38.25.63.10     x.acme.com              # x client host
+
+# localhost name resolution is handled within DNS itself.
+#        127.0.0.1       localhost
+#        ::1             localhost
+120.55.205.248        backend-ops-service.sit.ms.qixin007.com
+47.97.105.207         saas-jxw-service.sit.ms-vpc.qixin007.com
+47.97.105.207         backend-saas-eco-pub-opinion-service.sit.ms-vpc.qixin007.com
+47.97.105.207         backend-saas-industry-chain-service.sit.ms-vpc.qixin007.com
+47.97.105.207         backend-saas-nuxt-service.sit.ms-vpc.qixin007.com
+47.97.105.207         backend-saas-data-standard-service.sit.ms-vpc.qixin007.com
+47.97.105.207         zsproject.qixin007.com
+47.97.105.207         dgg-tiandi-maps-service-sit.qixin007.com 
+47.97.105.207         backend-peoplemanage-sit-service.qixin007.com
+47.97.105.207         dgg-data-governance-service-sit.qixin007.com
+47.97.105.207         sit-micro-app-dms.qixin007.com
+47.97.105.207         sit-micro-app-main.qixin007.com
+47.97.105.207         dgg-enterprise-management-service-sit.qixin007.com
+47.97.105.207         dgg-permission-management-sit.qixin007.com
+47.97.105.207         dgg-electrics-standard-instiute-service-sit.qixin007.com
+47.97.105.207         backend-peoplemanage-sit-service.qixin007.com
+47.97.105.207         dgg-datagov-dms.qixin007.com dgg-datagov-main.qixin007.com
+120.55.205.248        backend-ops-service.sit.ms.qixin007.com
+47.97.105.207         saas-jxw-service.sit.ms-vpc.qixin007.com
+47.97.105.207         backend-saas-eco-pub-opinion-service.sit.ms-vpc.qixin007.com
+47.97.105.207         backend-saas-industry-chain-service.sit.ms-vpc.qixin007.com
+47.97.105.207         backend-saas-nuxt-service.sit.ms-vpc.qixin007.com
+47.97.105.207         backend-saas-data-standard-service.sit.ms-vpc.qixin007.com
+47.97.105.207         backend-peoplemanage-sit-service.qixin007.com
+47.97.105.207         dgg-kongke.qixin007.com
+47.97.105.207         dgg-data-governance-service-sit.qixin007.com
+47.97.105.207         sit-micro-app-dms.qixin007.com
+47.97.105.207         sit-micro-app-main.qixin007.com
+47.97.105.207         dgg-one-screen-view-service-sit.qixin007.com
+120.132.21.190        ypg.jingjidanao.com
+47.97.105.207         dgg-enterprise-management-service-sit.qixin007.com
+120.132.21.190        eitc.jingjidanao.com eitc-plugin.jingjidanao.com
+47.97.105.207         dgg-jindian.qixin007.com
+47.97.105.207         dgg-electrics-standard-instiute-service-sit.qixin007.com
+47.97.105.207         sit-emp-app-electrics.qixin007.com 
+47.97.105.207         dgg-mhentcode-view-service-sit.qixin007.com
+47.97.105.207         dgg-datagov-dms.qixin007.com dgg-datagov-main.qixin007.com
+47.97.105.207         backend-mindx-api-internal.qixin007.com
+47.97.105.207         dgg-custom-chain-service-sit.qixin007.com 
+47.97.105.207         dgg-base-enterprise-service-sit.qixin007.com
+```
+
+### 其他
+
+#### 无权限可安装软件下载地址
+
+[Cute File Explorer](http://192.168.62.24/#)
+
+连接内网才能打开
 
