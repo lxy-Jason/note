@@ -1,0 +1,3 @@
+- 使用URL scheme，即在浏览器中打开一个自定义的协议地址，如weixin://或alipay://，如果用户安装了对应的app，就会唤起app；如果没有安装，就会跳转到下载页。[1](https://www.jianshu.com/p/62adf3cac8f2) [2](https://haorooms.com/post/app_wakeup)
+- 使用Universal Link或App Link，即在浏览器中打开一个普通的http或https地址，如果该地址被配置为与某个app关联，并且用户安装了该app，就会唤起app；如果没有安装，就会打开网页。[3](https://zhuanlan.zhihu.com/p/64111362) [4](https://juejin.cn/post/6844903664155525127)
+- 使用Intent，在Android中可以使用Intent协议来启动其他应用的Activity。[3](https://zhuanlan.zhihu.com/p/64111362)
