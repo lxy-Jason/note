@@ -1,0 +1,5 @@
+- float
+- clear
+- vertical-align
+- 继承的width,height会失效,得给元素手动添加
+- 
