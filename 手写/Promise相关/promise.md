@@ -65,7 +65,7 @@ const promise = new Promise((resolve, reject) => {
 
 创建一个Promise类,给构造函数传入一个执行器函数(executeor)
 
-设置初始化状态为pendding,成功状态的值value为undefined,失败状态的值reason为undefined
+设置初始化状态为pendding,成功状态的值value为undefined,失败状态的值reason为un	defined
 
 添加成功方法resolve和失败方法reject
 

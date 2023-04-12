@@ -18,7 +18,7 @@ Promise.myAllSettled = function(proms) {
         settledCount++
         result[index] = {
           status:'rejected',
-          value:err
+          reason:err
         }
       }).finally(() => {
         if(settledCount === count){
