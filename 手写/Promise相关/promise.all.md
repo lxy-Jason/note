@@ -34,23 +34,23 @@ function promiseAll(args) {
 测试
 
 ```js
-let p1 = new Promise((resolve) => {
-  resolve(1);
-});
-let p2 = new Promise((resolve, reject) => {
-  reject(2);
-});
-let p3 = new Promise((resolve, reject) => {
-  resolve(3);
-});
+    let p1 = new Promise((resolve) => {
+      resolve(1);
+    });
+    let p2 = new Promise((resolve, reject) => {
+      reject(2);
+    });
+    let p3 = new Promise((resolve, reject) => {
+      resolve(3);
+    });
 
-promiseAll([p1, p2, p3])
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+    promiseAll([p1, p2, p3])
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 ```
 
 
