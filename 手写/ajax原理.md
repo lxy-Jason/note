@@ -11,7 +11,7 @@ function ajax(options){
 
   //发送请求
   if(options.type === "GET"){
-    xhr.open("GET",options.url + '?' + params,true)
+    xhr.open("GET",options.url + '?' + params,true) //true表示异步执行
     xhr.send(null)
   }
   else if(options.tyep === "POST"){
