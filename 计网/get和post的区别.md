@@ -4,7 +4,7 @@
 4. get请求可以保存在浏览器历史记录中,post不会
 5. get请求可以被收藏为书签,post不行
 6. get只能进行url编码(appliacation-x-www-form-urlencoded),post支持多种编码(multipart/form-data等)
-7. get是安全方法,不会对数据做出更改,post就有可能改变服务器上的数据
+7. get是安全方法(幂等性),不会对数据做出更改,post就有可能改变服务器上的数据
 
 ### 深入的理解
 
