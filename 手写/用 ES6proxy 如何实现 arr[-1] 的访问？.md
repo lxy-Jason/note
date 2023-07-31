@@ -2,7 +2,7 @@
 function createArray(...element){
   let handler = {
     get(target,propKey,receiver){
-      let index = Number(propKey);
+      let index = Number(propKey); //重点在这里,相当于拦截了索引值,当索引为负时转换成对应的正索引
       if(index < 0){
         propKey = String(target.length + index);
       }
