@@ -35,7 +35,7 @@ class Promise {
 
     try {
       //立即执行,将resolve和reject
-      executor(resolve, reject);
+      executor(resolve, reject); //executor是new Promise()传入的
     } catch (error) {
       //发生异常时执行失败逻辑
       reject(error);
