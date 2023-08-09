@@ -14,4 +14,4 @@ loader运行在打包文件之前
 
 plugins在整个编译周期都起作用
 
-<img src="../image/9a04ec40-a7c2-11eb-ab90-d9ae814b240d.png" alt="img" style="zoom:50%;" />
+<img src="image/9a04ec40-a7c2-11eb-ab90-d9ae814b240d.png" alt="img" style="zoom:50%;" />
