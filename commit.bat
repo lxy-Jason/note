@@ -4,9 +4,9 @@ git status
 
 :: 获取当前日期时间
 for /f "tokens=1-4 delims=/ " %%a in ('date /t') do (
-    set "month=%%a"
-    set "day=%%b"
-    set "year=%%c"
+    set "year=%%a"
+    set "month=%%b"
+    set "day=%%c"
 )
 for /f "tokens=1-2 delims=: " %%a in ('time /t') do (
     set "hour=%%a"
