@@ -14,7 +14,7 @@ for /f "tokens=1-2 delims=: " %%a in ('time /t') do (
 )
 
 :: 设置默认提交注释为当前日期时间
-set "msg=%year%%month%%day%_%hour%%minute%"
+set "msg=%year%-%month%-%day% %hour%:%minute%"
 
 :: 提示用户输入提交注释
 set /p msg=请输入提交注释（默认为当前日期时间）:
