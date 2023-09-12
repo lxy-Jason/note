@@ -15,6 +15,25 @@ vue3通过`proxy`实现,
 - vue2组件只能有一个根节点
 - vue3组件可以多个根节点
 
+Vue 2使用的是基于选项的API（Options API），根组件是通过Vue实例的`el`选项来指定的。
+
+Composition API允许我们使用`createApp`函数创建一个应用实例，并通过`mount`方法将根组件挂载到指定的元素上。
+
+在Vue 3中，我们可以使用`createApp`创建多个应用实例，每个应用实例可以有自己的根组件，然后通过`mount`方法将不同的根组件挂载到不同的元素上。这样就实现了多个根组件的功能。
+
+```js
+// 创建第一个根组件
+const app1 = createApp(RootComponent1);
+app1.mount('#app1');
+
+// 创建第二个根组件
+const app2 = createApp(RootComponent2);
+app2.mount('#app2');
+
+```
+
+
+
 ### api类型不同
 
 vue2是选项式api,选项式api在代码中分割了不同属性,data,methods,computed
@@ -39,7 +58,18 @@ vue3通过createApp方法(工厂模式)可以返回一个提供应用上下文�
 
 这样更适合大型的开发环境中使用,不同的开发人员可以独立使用不同的实例
 
-### vue3升级的地方
+### 更好的TypeScript支持
 
-- 更好ts支持
-- 打包更科学,使用`tree shaking`将没有使用的代码删除,减少打包体积
+Vue 3对TypeScript的支持更加完善。Vue 3使用了TypeScript重新编写，提供了更好的类型推导和类型检查，使得在使用TypeScript开发Vue应用时更加友好和高效。
+
+### 更小的包体积
+
+Vue 3通过优化和重构，减小了包的体积。Vue 3的核心库体积相对较小，同时还引入了Tree-shaking机制，可以更好地消除未使用的代码，减少最终打包的体积。
+
+### 静态模板编译
+
+vue2时,在html文件中使用vue是运行时编译,就是浏览器执行时才进行编译
+
+在.vue文件中则是构建时编译,也就是静态模板编译,将模板编译成render函数,在浏览器中就可以直接执行
+
+在vue3中,html文件也是构建时编译了,也就是静态模板编译
