@@ -2,11 +2,11 @@
 
 #### Hash模式
 
-`#`以及它后面的字符称为hash
+**`#`以及它后面的字符称为hash**
 
 可以通过window.location.hash读取
 
-hash出现在URL中但是不会被包括在HTTP请求中,改变hash不会重新加载页面
+hash出现在URL中但是不会被包括在HTTP请求中,**改变hash不会重新加载页面**
 
 可以为hash的改变添加监听事件
 
@@ -17,6 +17,8 @@ window.addEventListener("hashchange",funcRef,false)
  每次改变hash,都会在浏览器的访问记录中增加一个记录
 
 hash模式就是基于这个原理,实现更新视图但是不重新请求页面
+
+hash模式不需要服务器端的特殊配置，因为hash值不会被包含在HTTP请求中
 
 ### History模式
 

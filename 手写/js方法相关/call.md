@@ -34,7 +34,7 @@ bar.myCall(foo,"Jason",20)
 Function.prototype.myCall = function(context,...args){
   context = Object(context) || window;
 
-  context.fn = this;
+  context.fn = this; //这里的this指向调用的函数,context是我们希望this指向的对象,将context.fn 赋值为调用的函数,因为fn是context对象的一个属性,调用的函数中的this就指向context了
   const result = context.fn(...args)
   delete context.fn;
   return result
