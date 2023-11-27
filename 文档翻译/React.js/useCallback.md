@@ -504,3 +504,253 @@ function TodoList() {
 ---
 
 ### Preventing an Effect from firing too often 
+
+Sometimes, you might want to call a function from inside an [Effect:](https://react.dev/learn/synchronizing-with-effects)
+
+```jsx
+function ChatRoom({ roomId }) {
+  const [message, setMessage] = useState('');
+
+  function createOptions() {
+    return {
+      serverUrl: 'https://localhost:1234',
+      roomId: roomId
+    };
+  }
+
+  useEffect(() => {
+    const options = createOptions();
+    const connection = createConnection();
+    connection.connect();
+    // ...
+```
+
+This creates a problem. 
+
+ [Every reactive value must be declared as a dependency of your Effect.](https://react.dev/learn/lifecycle-of-reactive-effects#react-verifies-that-you-specified-every-reactive-value-as-a-dependency)
+
+However, if you declare `createOptions` as a dependency, it will cause your Effect to constantly reconnect to the chat room:
+
+```jsx
+useEffect(() => {
+    const options = createOptions();
+    const connection = createConnection();
+    connection.connect();
+    return () => connection.disconnect();
+  }, [createOptions]); // 🔴 Problem: This dependency changes on every render
+  // ...
+```
+
+To solve this, you can wrap the function you need to call from an Effect into `useCallback`:
+
+```jsx
+function ChatRoom({ roomId }) {
+  const [message, setMessage] = useState('');
+
+  const createOptions = useCallback(() => {
+    return {
+      serverUrl: 'https://localhost:1234',
+      roomId: roomId
+    };
+  }, [roomId]); // ✅ Only changes when roomId changes
+
+  useEffect(() => {
+    const options = createOptions();
+    const connection = createConnection();
+    connection.connect();
+    return () => connection.disconnect();
+  }, [createOptions]); // ✅ Only changes when createOptions changes
+  // ...
+```
+
+This ensures that the `createOptions` function is the same between re-renders if the `roomId` is the same. 
+
+**However, it’s even better to remove the need(依赖) for a function dependency.** 
+
+Move your function *inside* the Effect:
+
+```jsx
+function ChatRoom({ roomId }) {
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    function createOptions() { // ✅ No need for useCallback or function dependencies!
+      return {
+        serverUrl: 'https://localhost:1234',
+        roomId: roomId
+      };
+    }
+
+    const options = createOptions();
+    const connection = createConnection();
+    connection.connect();
+    return () => connection.disconnect();
+  }, [roomId]); // ✅ Only changes when roomId changes
+  // ...
+```
+
+Now your code is simpler and doesn’t need `useCallback`. 
+
+[Learn more about removing Effect dependencies.](https://react.dev/learn/removing-effect-dependencies#move-dynamic-objects-and-functions-inside-your-effect)
+
+---
+
+### Optimizing a custom Hook 
+
+If you’re writing a [custom Hook,](https://react.dev/learn/reusing-logic-with-custom-hooks) it’s recommended to wrap **any** functions that it returns into `useCallback`:
+
+```jsx
+function useRouter() {
+  const { dispatch } = useContext(RouterStateContext);
+
+  const navigate = useCallback((url) => {
+    dispatch({ type: 'navigate', url });
+  }, [dispatch]);
+
+  const goBack = useCallback(() => {
+    dispatch({ type: 'back' });
+  }, [dispatch]);
+
+  return {
+    navigate,
+    goBack,
+  };
+}
+```
+
+This ensures that the consumers of your Hook can optimize their own code when needed.
+
+---
+
+## Troubleshooting 
+
+### Every time my component renders, `useCallback` returns a different function
+
+Make sure you’ve specified the dependency array as a second argument!
+
+If you forget the dependency array, `useCallback` will return a new function every time:
+
+```jsx
+function ProductPage({ productId, referrer }) {
+  const handleSubmit = useCallback((orderDetails) => {
+    post('/product/' + productId + '/buy', {
+      referrer,
+      orderDetails,
+    });
+  }); // 🔴 Returns a new function every time: no dependency array
+  // ...
+```
+
+This is the corrected version passing the dependency array as a second argument:
+
+```jsx
+function ProductPage({ productId, referrer }) {
+  const handleSubmit = useCallback((orderDetails) => {
+    post('/product/' + productId + '/buy', {
+      referrer,
+      orderDetails,
+    });
+  }, [productId, referrer]); // ✅ Does not return a new function unnecessarily
+  // ...
+```
+
+If this doesn’t help, then the problem is that at least one of your dependencies is different from the previous render.
+
+You can debug this problem by manually logging your dependencies to the console:
+
+```jsx
+  const handleSubmit = useCallback((orderDetails) => {
+    // ..
+  }, [productId, referrer]);
+
+  console.log([productId, referrer]);
+```
+
+然后您可以在控制台上右键单击来自不同重新渲染的数组，并选择把它们都“存储为全局变量”。
+
+Assuming the first one got saved as `temp1` and the second one got saved as `temp2`, you can then use the browser console to check whether each dependency in both arrays is the same:
+
+```jsx
+Object.is(temp1[0], temp2[0]); // Is the first dependency the same between the arrays?
+Object.is(temp1[1], temp2[1]); // Is the second dependency the same between the arrays?
+Object.is(temp1[2], temp2[2]); // ... and so on for every dependency ...
+```
+
+When you find which dependency is breaking memoization, either find a way to remove it, or [memoize it as well.](https://react.dev/reference/react/useMemo#memoizing-a-dependency-of-another-hook)
+
+---
+
+### I need to call `useCallback` for each list item in a loop, but it’s not allowed 
+
+Suppose(假设) the `Chart` component is wrapped in [`memo`](https://react.dev/reference/react/memo). 
+
+You want to skip re-rendering every `Chart` in the list when the `ReportList` component re-renders. However, you can’t call `useCallback` in a loop:
+
+```jsx
+function ReportList({ items }) {
+  return (
+    <article>
+      {items.map(item => {
+        // 🔴 You can't call useCallback in a loop like this:
+        const handleClick = useCallback(() => {
+          sendReport(item)
+        }, [item]);
+
+        return (
+          <figure key={item.id}>
+            <Chart onClick={handleClick} />
+          </figure>
+        );
+      })}
+    </article>
+  );
+}
+```
+
+Instead, extract a component for an individual item, and put `useCallback` there:
+
+```jsx
+function ReportList({ items }) {
+  return (
+    <article>
+      {items.map(item =>
+        <Report key={item.id} item={item} />
+      )}
+    </article>
+  );
+}
+
+function Report({ item }) {
+  // ✅ Call useCallback at the top level:
+  const handleClick = useCallback(() => {
+    sendReport(item)
+  }, [item]);
+
+  return (
+    <figure>
+      <Chart onClick={handleClick} />
+    </figure>
+  );
+}
+```
+
+Alternatively(或者), you could remove `useCallback` in the last snippet(片段) and instead wrap `Report` itself in [`memo`.](https://react.dev/reference/react/memo)
+
+```jsx
+function ReportList({ items }) {
+  // ...
+}
+
+const Report = memo(function Report({ item }) {
+  function handleClick() {
+    sendReport(item);
+  }
+
+  return (
+    <figure>
+      <Chart onClick={handleClick} />
+    </figure>
+  );
+});
+```
+

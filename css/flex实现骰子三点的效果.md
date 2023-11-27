@@ -1,3 +1,5 @@
+也称为flex 对角线布局
+
 重点是主轴改成column,然后通过`slign-self`属性可以修改item自身在交叉轴上的位置
 
 ```html
