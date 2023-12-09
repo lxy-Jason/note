@@ -128,3 +128,10 @@ networks:
 docker run --net=host <images_id>
 ```
 
+### next项目本地docker部署后无法访问
+
+```
+docker run -p 3000:3000 lxy-blog-web
+```
+
+终端中运行时指定端口,端口要和`Dockerfile`文件中,以及next start端口三组一致
